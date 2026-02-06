@@ -152,7 +152,7 @@ export default function Contact() {
                                 <div>
                                     <h4 className="font-semibold text-black dark:text-white mb-1">Location</h4>
                                     <p className="text-gray-600 dark:text-gray-400">
-                                        Colombo, Sri Lanka
+                                       348/9, Mullegama Road, Habarakada, Homagama.
                                     </p>
                                 </div>
                             </div>
