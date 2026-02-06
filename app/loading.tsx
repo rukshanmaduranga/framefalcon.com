@@ -9,7 +9,7 @@ export default function Loading() {
                     <div className="w-32 h-32 mx-auto flex items-center justify-center">
                         <Image
                             src="/falcon-logo.png"
-                            alt="Frame Falcon Studios Logo"
+                            alt="Frame Falcon Studios"
                             width={128}
                             height={128}
                             className="object-contain"
