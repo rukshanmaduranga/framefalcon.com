@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Send, Mail, Phone, MapPin, Loader2 } from 'lucide-react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
@@ -23,20 +23,19 @@ export default function Contact() {
         });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = useCallback(async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!executeRecaptcha) {
+            console.log('⏳ reCAPTCHA still loading, please wait...');
+            return;
+        }
+
         setIsSubmitting(true);
         setSubmitStatus('idle');
 
         try {
             // Execute reCAPTCHA
-            if (!executeRecaptcha) {
-                console.error('reCAPTCHA not loaded');
-                setSubmitStatus('error');
-                setIsSubmitting(false);
-                return;
-            }
-
             const recaptchaToken = await executeRecaptcha('contact_form');
 
             const response = await fetch('/api/contact', {
@@ -78,7 +77,7 @@ export default function Contact() {
         } finally {
             setIsSubmitting(false);
         }
-    };
+    }, [executeRecaptcha, formData]);
 
     const services = [
         'Teledrama Editing',
@@ -152,7 +151,7 @@ export default function Contact() {
                                 <div>
                                     <h4 className="font-semibold text-black dark:text-white mb-1">Location</h4>
                                     <p className="text-gray-600 dark:text-gray-400">
-                                       348/9, Mullegama Road, Habarakada, Homagama.
+                                        348/9, Mullegama Road, Habarakada, Homagama.
                                     </p>
                                 </div>
                             </div>

@@ -1,0 +1,11 @@
+# robots.txt for Frame Falcon Studios
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://framefalcon.com/sitemap.xml
