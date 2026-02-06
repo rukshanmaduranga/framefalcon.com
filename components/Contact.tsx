@@ -139,8 +139,8 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="font-semibold text-black dark:text-white mb-1">Phone</h4>
-                                    <a href="tel:+94123456789" className="text-gray-600 dark:text-gray-400 hover:text-blue-500 transition-colors">
-                                        +94 12 345 6789
+                                    <a href="tel:+94717342424" className="text-gray-600 dark:text-gray-400 hover:text-blue-500 transition-colors">
+                                        +94 717 342424
                                     </a>
                                 </div>
                             </div>
