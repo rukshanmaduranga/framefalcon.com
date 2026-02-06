@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { Send, Mail, Phone, MapPin, Loader2 } from 'lucide-react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 export default function Contact() {
+    const { executeRecaptcha } = useGoogleReCaptcha();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -27,12 +29,25 @@ export default function Contact() {
         setSubmitStatus('idle');
 
         try {
+            // Execute reCAPTCHA
+            if (!executeRecaptcha) {
+                console.error('reCAPTCHA not loaded');
+                setSubmitStatus('error');
+                setIsSubmitting(false);
+                return;
+            }
+
+            const recaptchaToken = await executeRecaptcha('contact_form');
+
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    ...formData,
+                    recaptchaToken,
+                }),
             });
 
             if (response.ok) {
