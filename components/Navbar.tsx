@@ -6,7 +6,7 @@ import { Menu, X, Sun, Moon } from 'lucide-react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true); // Default to dark mode
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -14,11 +14,22 @@ export default function Navbar() {
       setScrolled(window.scrollY > 50);
     };
 
+    // Check localStorage for theme preference, default to dark if not set
     const theme = localStorage.getItem('theme');
-    if (theme === 'dark') {
+    if (theme === 'light') {
+      // Only set to light mode if explicitly set
+      setIsDark(false);
+      document.documentElement.classList.remove('dark');
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      // Default to dark mode
       setIsDark(true);
       document.documentElement.classList.add('dark');
       document.documentElement.setAttribute('data-theme', 'dark');
+      if (!theme) {
+        // Set localStorage to dark if not already set
+        localStorage.setItem('theme', 'dark');
+      }
     }
 
     window.addEventListener('scroll', handleScroll);
